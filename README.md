@@ -2,5 +2,5 @@
 
 To run the database implemention:
 ```bash
-$ python main.py
+$ python3 main.py
 ```
