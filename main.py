@@ -8,7 +8,7 @@ readline.parse_and_bind('tab: complete')
 
 def main_routine(parser, db):
     command = input("sql> ")
-    if command.strip() == "exit":
+    if command.strip() == "exit" or command.strip() == "quit":
         return "quit"
 
     commands = []
@@ -25,9 +25,13 @@ def main_routine(parser, db):
     for command in commands:
         start = timeit.default_timer()      
         parsed_query = parser.parse_query(command)
+        if len(command) < 60:
+            print(command)
+        else:
+            print(command[:60] + " ... [truncated]")
         db.handle(parsed_query)
         stop = timeit.default_timer()
-        print(f'(Execution Time: {stop - start} s)')
+        print(f'(Execution Time: {stop - start:0.3f} s)')
 
     return "continue"
 

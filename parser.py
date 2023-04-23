@@ -1,4 +1,3 @@
-import timeit
 from mo_sql_parsing import parse
 import insert_parser
 
@@ -19,13 +18,10 @@ class Parser:
 
     def parse_query(self, query):
         # generate parsed_query using mo_sql_parsing.parse() with extra two key-value pairs - {"type": "select"} and {"inner join": true}
-        start = timeit.default_timer()
         if self.should_use_custom_insert_parser(query):
             q = self._insert_parser.parse(query)
         else:
             q = parse(query)
-        stop = timeit.default_timer()
-        print(f'(xtra parse Execution Time: {stop - start} s)')
         """
         tables = parsed_query.get("from")
         parsed_query["TableName"] = []
