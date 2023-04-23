@@ -1,6 +1,6 @@
 from database import Database
 from parser import Parser
-import sqlvalidator
+import timeit
 
 def main_routine(parser, db):
     print(">>> ", end="")
@@ -8,29 +8,23 @@ def main_routine(parser, db):
     if command == "exit":
         return "quit"
 
+    commands = []
+
     arr = command.split()
     if arr[0] == "source":
         file = open(arr[1], "r")
         for x in file:
-            print(x)
-            parsed_query = p.parse_query(x)
-            db.handle(parsed_query)
+            commands.append(x)
         file.close()
-
     else:
-        """ 
-        s = sqlvalidator.parse(command)
-        if not s.is_valid():
-            print("wrong sql command")
-        else:
-            parsed_query = p.parse_query(command)
-            #db.handle(parsed_query)
-            #print(parsed_query)
-            # print(command)
-        """
+        commands.append(command)
+
+    for command in commands:
+        start = timeit.default_timer()      
         parsed_query = parser.parse_query(command)
-        #print(parsed_query)
         db.handle(parsed_query)
+        stop = timeit.default_timer()
+        print(f'(Execution Time: {stop - start} s)')  
 
     return "continue"
 
@@ -49,16 +43,5 @@ if __name__ == '__main__':
         except Exception as e:
             print(f"Error: {e}")
             continue
-        
 
-    # Instantiate a parser
-    # Define a list for parsed query
-    # If single sql, call parser.parseSingle(), add result to the list
-    # If multiple sql, call parser.parseMany(), add result to the list
-
-    # For each parsed query in the list
-        # Call handler.handle(query)
-
-        # Print query time
-        # Print output
 
