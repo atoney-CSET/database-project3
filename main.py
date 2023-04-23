@@ -1,6 +1,7 @@
 from database import Database
 from parser import Parser
 import timeit
+import traceback
 
 def main_routine(parser, db):
     print(">>> ", end="")
@@ -42,6 +43,7 @@ if __name__ == '__main__':
                 cont = False
         except Exception as e:
             print(f"Error: {e}")
+            print(traceback.format_exc())
             continue
 
 

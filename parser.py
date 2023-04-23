@@ -1,12 +1,31 @@
+import timeit
 from mo_sql_parsing import parse
-
+import insert_parser
 
 class Parser:
+    
+    def __init__(self):
+        self._insert_parser = insert_parser.InsertParser()
+
+    def should_use_custom_insert_parser(self, query):
+        is_insert_statement = query[:6] == "INSERT"
+
+        if not is_insert_statement:
+            return False
+
+        is_compound_insert = query.split("VALUES")[1].find("),") != -1
+
+        return is_insert_statement and is_compound_insert
 
     def parse_query(self, query):
         # generate parsed_query using mo_sql_parsing.parse() with extra two key-value pairs - {"type": "select"} and {"inner join": true}
-        q = parse(query)
-
+        start = timeit.default_timer()
+        if self.should_use_custom_insert_parser(query):
+            q = self._insert_parser.parse(query)
+        else:
+            q = parse(query)
+        stop = timeit.default_timer()
+        print(f'(xtra parse Execution Time: {stop - start} s)')
         """
         tables = parsed_query.get("from")
         parsed_query["TableName"] = []
@@ -207,3 +226,4 @@ class Parser:
             parsed_query["orderby"] = order_cols
 
         return parsed_query
+
