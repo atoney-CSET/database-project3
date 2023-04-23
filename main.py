@@ -5,7 +5,7 @@ import timeit
 def main_routine(parser, db):
     print(">>> ", end="")
     command = input()
-    if command == "exit":
+    if command.strip() == "exit":
         return "quit"
 
     commands = []
@@ -24,7 +24,7 @@ def main_routine(parser, db):
         parsed_query = parser.parse_query(command)
         db.handle(parsed_query)
         stop = timeit.default_timer()
-        print(f'(Execution Time: {stop - start} s)')  
+        print(f'(Execution Time: {stop - start} s)')
 
     return "continue"
 
