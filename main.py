@@ -1,11 +1,13 @@
+import readline
 from database import Database
 from parser import Parser
 import timeit
 import traceback
 
+readline.parse_and_bind('tab: complete')
+
 def main_routine(parser, db):
-    print(">>> ", end="")
-    command = input()
+    command = input("sql> ")
     if command.strip() == "exit":
         return "quit"
 
