@@ -1,4 +1,5 @@
 # database-project3
+## Usage Example
 
 To run the database implemention:
 ```
