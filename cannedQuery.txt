@@ -1,0 +1,4 @@
+SELECT id as ID,age as AGE FROM dual WHERE id>3 and (age<20 or age>30 ) ORDER BY name;
+SELECT Orders.OrderID, Customers.CustomerName FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+CREATE INDEX idx_lastname ON Persons (LastName);
+INSERT INTO Customers (CustomerName, City, Country) VALUES ('Cardinal', 'Stavanger', 'Norway');
