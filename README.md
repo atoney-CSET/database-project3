@@ -22,6 +22,7 @@ Run the following to reproduce our demo outputs:
 
 ```
 $ python3 main.py
+sql> demo_tables.sql
 sql> source demo_queries.sql
 sql> source country_income.sql
 ```
