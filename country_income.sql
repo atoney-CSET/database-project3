@@ -1,0 +1,3 @@
+CREATE TABLE country_income (country_code STRING, region STRING, income_group STRING, population INT, PRIMARY KEY (country_code));
+INSERT INTO country_income (country_code, region, income_group, population) VALUES ('JPN', 'East Asia & Pacific', 'High income', 125), ('IND', 'South Asia', 'Lower middle income', 1408), ('USA', 'North America', 'High income', 332), ('RUS', 'Europe & Central Asia', 'Upper middle income', 143), ('CHL', 'Latin America & Caribbean', 'High income', 19);
+SELECT avg(population) as avg_pop, income_group FROM country_income GROUP BY income_group;
